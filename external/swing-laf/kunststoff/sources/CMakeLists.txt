@@ -1,17 +1,20 @@
 
+# TODO apparently at least with cmake 2.8.6 must provide full path to resource files here.
 add_jar(kunststoff-mod
-	../licence.txt
-	../README.source
+	"${CMAKE_CURRENT_SOURCE_DIR}/../licence.txt"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../README.source"
+	"${CMAKE_CURRENT_SOURCE_DIR}/com/incors/plaf/kunststoff/icons/Error.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/com/incors/plaf/kunststoff/icons/Inform.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/com/incors/plaf/kunststoff/icons/Question.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/com/incors/plaf/kunststoff/icons/treecol.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/com/incors/plaf/kunststoff/icons/treeex.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/com/incors/plaf/kunststoff/icons/Warn.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/com/incors/plaf/kunststoff/mini/icons/treecol.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/com/incors/plaf/kunststoff/mini/icons/treeex.gif"
 	com/incors/plaf/ColorUIResource2.java
-	com/incors/plaf/FastGradientPaint.java
 	com/incors/plaf/FastGradientPaintContext.java
+	com/incors/plaf/FastGradientPaint.java
 	com/incors/plaf/kunststoff/GradientTheme.java
-	com/incors/plaf/kunststoff/icons/Error.gif
-	com/incors/plaf/kunststoff/icons/Inform.gif
-	com/incors/plaf/kunststoff/icons/Question.gif
-	com/incors/plaf/kunststoff/icons/treecol.gif
-	com/incors/plaf/kunststoff/icons/treeex.gif
-	com/incors/plaf/kunststoff/icons/Warn.gif
 	com/incors/plaf/kunststoff/KunststoffButtonUI.java
 	com/incors/plaf/kunststoff/KunststoffCheckBoxIcon.java
 	com/incors/plaf/kunststoff/KunststoffCheckBoxUI.java
@@ -37,8 +40,6 @@ add_jar(kunststoff-mod
 	com/incors/plaf/kunststoff/KunststoffToolBarUI.java
 	com/incors/plaf/kunststoff/KunststoffTreeUI.java
 	com/incors/plaf/kunststoff/KunststoffUtilities.java
-	com/incors/plaf/kunststoff/mini/icons/treecol.gif
-	com/incors/plaf/kunststoff/mini/icons/treeex.gif
 	com/incors/plaf/kunststoff/mini/KunststoffMiniButtonUI.java
 	com/incors/plaf/kunststoff/mini/KunststoffMiniCheckBoxIcon.java
 	com/incors/plaf/kunststoff/mini/KunststoffMiniCheckBoxUI.java

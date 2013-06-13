@@ -63,6 +63,10 @@ endif()
 add_subdirectory(vrj)
 add_subdirectory(vrj/Draw)
 
+if(BUILD_JAVA)
+	add_subdirectory(vrjconfig)
+endif()
+
 install(DIRECTORY vrj
 	DESTINATION ${VRJ_INCLUDE_PREFIX}
 	COMPONENT vrj-dev

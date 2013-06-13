@@ -4,30 +4,34 @@ find_jar(TABLELAYOUT_JAR
 	TableLayout
 	PATHS
 	${EXTERNALS}/TableLayout)
+
 set(CMAKE_JAVA_INCLUDE_PATH ${TWEEK_JAVA_CLASSPATH} "${TABLELAYOUT_JAR}")
 
 add_jar(ui
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/ui/package.html"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/ui/treetable/package.html"
 	org/vrjuggler/tweek/ui/JTreeTable.java
-	org/vrjuggler/tweek/ui/package.html
 	org/vrjuggler/tweek/ui/PropertySheet.java
 	org/vrjuggler/tweek/ui/PropertySheetCellEditor.java
 	org/vrjuggler/tweek/ui/PropertySheetTableModel.java
 	org/vrjuggler/tweek/ui/treetable/AbstractTreeTableModel.java
-	org/vrjuggler/tweek/ui/treetable/package.html
 	org/vrjuggler/tweek/ui/treetable/TreeTableModel.java
 	org/vrjuggler/tweek/ui/treetable/TreeTableModelAdapter.java)
 
 add_jar(wizard
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/add16.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/down16.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/new24.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/open24.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/preview24.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/remove16.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/save24.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/saveas24.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/builder/images/up16.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/images/juggler_sidebar.png"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/package.html"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/wizard/panes/package.html"
 	org/vrjuggler/tweek/wizard/AbstractWizardStep.java
-	org/vrjuggler/tweek/wizard/builder/images/add16.gif
-	org/vrjuggler/tweek/wizard/builder/images/down16.gif
-	org/vrjuggler/tweek/wizard/builder/images/new24.gif
-	org/vrjuggler/tweek/wizard/builder/images/open24.gif
-	org/vrjuggler/tweek/wizard/builder/images/preview24.gif
-	org/vrjuggler/tweek/wizard/builder/images/remove16.gif
-	org/vrjuggler/tweek/wizard/builder/images/save24.gif
-	org/vrjuggler/tweek/wizard/builder/images/saveas24.gif
-	org/vrjuggler/tweek/wizard/builder/images/up16.gif
 	org/vrjuggler/tweek/wizard/builder/PropertySheet.java
 	org/vrjuggler/tweek/wizard/builder/PropertySheetCellEditor.java
 	org/vrjuggler/tweek/wizard/builder/PropertySheetTableModel.java
@@ -35,9 +39,6 @@ add_jar(wizard
 	org/vrjuggler/tweek/wizard/builder/WizardBuilderTreeModel.java
 	org/vrjuggler/tweek/wizard/builder/WizardStepChooserDialog.java
 	org/vrjuggler/tweek/wizard/builder/WizardStepFinder.java
-	org/vrjuggler/tweek/wizard/images/juggler_sidebar.png
-	org/vrjuggler/tweek/wizard/package.html
-	org/vrjuggler/tweek/wizard/panes/package.html
 	org/vrjuggler/tweek/wizard/panes/WelcomePane.java
 	org/vrjuggler/tweek/wizard/RootWizardSequence.java
 	org/vrjuggler/tweek/wizard/Wizard.java

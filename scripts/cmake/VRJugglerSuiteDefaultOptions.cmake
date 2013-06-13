@@ -86,7 +86,7 @@ set(CPACK_PACKAGE_VENDOR "Iowa State University")
 set(CPACK_PACKAGE_CONTACT "Ryan Pavlik <rpavlik@iastate.edu>")
 
 if(WIN32)
-	add_definitions(-DCPPDOM_DYN_LINK -DWIN32)
+	add_definitions(-DCPPDOM_DYN_LINK -DWIN32 -D_WIN32_WINNT=0x0501)
 	if(MSVC)
 		set(BOOST_DEFAULT_DYNLINK ON)
 	else()

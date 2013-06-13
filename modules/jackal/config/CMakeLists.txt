@@ -3,6 +3,11 @@ if(BUILD_JAVA)
 	###
 	# jccl_config
 	add_jar(jccl_config
+		"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/jccl/config/event/package.html"
+		"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/jccl/config/io/package.html"
+		"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/jccl/config/package.html"
+		"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/jccl/config/undo/package.html"
+		"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/jccl/config/images/jugglerlogo.jpg"
 		org/vrjuggler/jccl/config/Category.java
 		org/vrjuggler/jccl/config/ConfigBroker.java
 		org/vrjuggler/jccl/config/ConfigBrokerImpl.java
@@ -35,12 +40,10 @@ if(BUILD_JAVA)
 		org/vrjuggler/jccl/config/event/ConfigElementPointerListener.java
 		org/vrjuggler/jccl/config/event/ConfigEvent.java
 		org/vrjuggler/jccl/config/event/ConfigListener.java
-		org/vrjuggler/jccl/config/event/package.html
 		org/vrjuggler/jccl/config/event/PropertyDefinitionAdapter.java
 		org/vrjuggler/jccl/config/event/PropertyDefinitionEvent.java
 		org/vrjuggler/jccl/config/event/PropertyDefinitionListener.java
 		org/vrjuggler/jccl/config/FileDataSource.java
-		org/vrjuggler/jccl/config/images/jugglerlogo.jpg
 		org/vrjuggler/jccl/config/io/ConfigDefinitionConstants.java
 		org/vrjuggler/jccl/config/io/ConfigDefinitionParser.java
 		org/vrjuggler/jccl/config/io/ConfigDefinitionReader.java
@@ -53,9 +56,7 @@ if(BUILD_JAVA)
 		org/vrjuggler/jccl/config/io/ConfigurationWriter.java
 		org/vrjuggler/jccl/config/io/DefinitionFilenameFilter.java
 		org/vrjuggler/jccl/config/io/MissingAttributeException.java
-		org/vrjuggler/jccl/config/io/package.html
 		org/vrjuggler/jccl/config/io/ParseException.java
-		org/vrjuggler/jccl/config/package.html
 		org/vrjuggler/jccl/config/PropertyDefinition.java
 		org/vrjuggler/jccl/config/PropertyValueDefinition.java
 		org/vrjuggler/jccl/config/ResourceChooser.java
@@ -65,8 +66,7 @@ if(BUILD_JAVA)
 		org/vrjuggler/jccl/config/undo/ConfigElementPropertyEdit.java
 		org/vrjuggler/jccl/config/undo/ConfigElementPropertyValueAddEdit.java
 		org/vrjuggler/jccl/config/undo/ConfigElementPropertyValueIndexEdit.java
-		org/vrjuggler/jccl/config/undo/ConfigElementPropertyValueRemoveEdit.java
-		org/vrjuggler/jccl/config/undo/package.html)
+		org/vrjuggler/jccl/config/undo/ConfigElementPropertyValueRemoveEdit.java)
 	add_dependencies(jccl_config tweek_java)
 	set_target_properties(jccl_config PROPERTIES FOLDER "JCCL Java")
 	get_property(JAR TARGET jccl_config PROPERTY JAR_FILE)
@@ -101,7 +101,7 @@ if(BUILD_JAVA)
 		message(FATAL_ERROR "Used system JAR: ${jar} - TODO")
 	endif()
 	#get_filename_component(EDITORS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../editors" ABSOLUTE)
-	set(EDITORS_DIR "../editors")
+	set(EDITORS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../editors")
 	add_jar(jccl_editors
 		jccl_config
 		ui

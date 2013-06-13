@@ -1,6 +1,11 @@
+set(TWEEK_IDL_JAVA)
 foreach(idlname ${TWEEK_IDL_NAMES})
-	java_idlj(TWEEK_IDL_JAVA "${TWEEK_IDL_DIR}/${idlname}.idl" -i "${CMAKE_CURRENT_SOURCE_DIR}/..")
+	java_idlj(idljava "${TWEEK_IDL_DIR}/${idlname}.idl" -i "${CMAKE_CURRENT_SOURCE_DIR}/..")
+	list(APPEND TWEEK_IDL_JAVA ${idljava})
 endforeach()
+
+add_jar(TweekIDL
+	${TWEEK_IDL_JAVA})
 
 if(APPLE)
 	set(TWEEK_MAC_SRC org/vrjuggler/tweek/mac/TweekAppListener.java)
@@ -57,10 +62,13 @@ find_jar(JGOODIESLOOKS_JAR
 
 set(CMAKE_JAVA_INCLUDE_PATH ${JDOM_JARS} "${LIQUIDLNF_JAR}" "${METOUIA_JAR}" "${JGOODIESLOOKS_JAR}")
 
-add_subdirectory("../../../external/swing-laf/kunststoff/sources" kunststoff-mod-build)
+get_property(TweekIDLJar TARGET TweekIDL PROPERTY JAR_FILE)
+list(APPEND CMAKE_JAVA_INCLUDE_PATH "${TweekIDLJar}")
 
+add_subdirectory("../../../external/swing-laf/kunststoff/sources" kunststoff-mod-build)
 get_property(klafjar TARGET kunststoff-mod PROPERTY JAR_FILE)
 list(APPEND CMAKE_JAVA_INCLUDE_PATH "${klafjar}")
+
 add_jar(Tweek
 	org/vrjuggler/tweek/EnvironmentServiceImpl.java
 	org/vrjuggler/tweek/GlobalPreferencesServiceImpl.java
@@ -91,6 +99,7 @@ add_jar(Tweek
 	org/vrjuggler/tweek/text/warning.gif
 	${TWEEK_MAC_SRC}
 	LICENSE-java-laf.txt)
+add_dependencies(Tweek TweekIDL)
 add_dependencies(Tweek kunststoff-mod)
 list(REMOVE_ITEM CMAKE_JAVA_INCLUDE_PATH "${klafjar}")
 
@@ -148,8 +157,8 @@ add_jar(TweekEvents
 add_jar(TweekNet
 	org/vrjuggler/tweek/net/CommunicationEvent.java
 	org/vrjuggler/tweek/net/CommunicationListener.java
-	org/vrjuggler/tweek/net/corba/CorbaService.java
-	${TWEEK_IDL_JAVA})
+	org/vrjuggler/tweek/net/corba/CorbaService.java)
+add_dependencies(TweekNet TweekIDL)
 
 add_jar(TweekBeanDelivery
 	TweekNet
@@ -177,15 +186,15 @@ add_jar(Viewers
 	org/vrjuggler/tweek/iconviewer/PrefsEditor.java
 	org/vrjuggler/tweek/iconviewer/PrefsEvent.java
 	org/vrjuggler/tweek/iconviewer/PrefsEventListener.java
-	org/vrjuggler/tweek/iconviewer/back-small.gif
-	org/vrjuggler/tweek/iconviewer/back.gif
-	org/vrjuggler/tweek/iconviewer/bean_default.gif
-	org/vrjuggler/tweek/iconviewer/bean_folder.gif
-	org/vrjuggler/tweek/iconviewer/forward-small.gif
-	org/vrjuggler/tweek/iconviewer/forward.gif
-	org/vrjuggler/tweek/iconviewer/home-small.gif
-	org/vrjuggler/tweek/iconviewer/home.gif
-	LICENSE-java-laf.txt)
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/iconviewer/back-small.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/iconviewer/back.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/iconviewer/bean_default.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/iconviewer/bean_folder.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/iconviewer/forward-small.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/iconviewer/forward.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/iconviewer/home-small.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/org/vrjuggler/tweek/iconviewer/home.gif"
+	"${CMAKE_CURRENT_SOURCE_DIR}/LICENSE-java-laf.txt")
 
 # Arguments:
 # - metatarget name to create (will also be the install component name)
@@ -234,6 +243,7 @@ tweek_create_metatarget(tweek_java
 	"Tweek Java API"
 	"${TWEEK_SHARE_DIR}/java"
 	kunststoff-mod
+	TweekIDL
 	Tweek
 	TweekBeanDelivery
 	TweekBeans
@@ -259,9 +269,10 @@ add_dependencies(tweek_beans tweek_copy_xml)
 
 # Look at our classpath and copy any dependencies that we're using our local copy of.
 foreach(jar ${CMAKE_JAVA_INCLUDE_PATH})
-	string(FIND "${jar}" "${EXTERNALS}" FINDRESULT)
-	if(FINDRESULT EQUAL 0)
-		# OK, this is a file from our "externals" folder - must install it.
+	string(FIND "${jar}" "${EXTERNALS}" FROMEXTERNALS)
+	string(FIND "${jar}" "${CMAKE_CURRENT_BINARY_DIR}" FROMBUILD)
+	if(FROMEXTERNALS EQUAL 0 OR FROMBUILD EQUAL 0)
+		# OK, this is a file from our "externals" or our build folder - must install it.
 		list(APPEND BUNDLED_JAR_DEPENDENCIES "${jar}")
 	else()
 		message(FATAL_ERROR "Used system JAR: ${jar} - TODO")
@@ -271,7 +282,8 @@ endforeach()
 vrjugglersuite_copy_and_install(TWEEK_COPIED_FILES
 	"${TWEEK_SHARE_DIR}/java"
 	tweek_java
-	${BUNDLED_JAR_DEPENDENCIES})
+	${BUNDLED_JAR_DEPENDENCIES}
+	"${CMAKE_CURRENT_SOURCE_DIR}/java.security.policy.txt")
 
 add_custom_target(tweek_copy_jar_deps
 	DEPENDS ${TWEEK_COPIED_FILES})

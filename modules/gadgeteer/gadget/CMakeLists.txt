@@ -201,9 +201,11 @@ set(SOURCES
 	../cluster/Packets/EndBlock.cpp
 	../cluster/Packets/Header.cpp
 	../cluster/Packets/Packet.cpp
-	../cluster/Packets/PacketFactory.cpp
+	../cluster/Packets/PacketFactory.cpp)
 
-	../gadget.rc)
+if(MSVC)
+	list(APPEND SOURCES ../gadget.rc)
+endif()
 
 set(GADGET_USE_COCOA)
 set(GADGET_USE_X11)
